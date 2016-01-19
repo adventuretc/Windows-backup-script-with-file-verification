@@ -1,0 +1,13 @@
+/e /DCOPY:T
+
+Notes:
+The script only reads the first line of this file.
+
+	/e = everything
+	/DCOPY:T = retain all date tags
+
+	Syntax
+	robocopy <Source> <Destination> [<File>[ ...]] [<Options>]
+
+	Parameter reference
+	https://technet.microsoft.com/en-us/library/cc733145.aspx

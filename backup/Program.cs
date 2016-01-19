@@ -8,14 +8,14 @@ namespace backup
 {
 	class Job
 	{
-		public String path;
+		public string path;
 		public bool isFile;
 		public bool pathExists = true;
 
-		public String directoryPath;
-		public String fileName; //isFile
+		public string directoryPath;
+		public string fileName; //isFile
 
-		public String destinationPath;
+		public string destinationPath;
 
 		public bool copyError = false;
 		public bool verificationError = false;
@@ -23,12 +23,12 @@ namespace backup
 
 	class Program
 	{
-		static String destinationRoot;
+		static string destinationRoot;
 		static StreamWriter copyLogWriter;
 		static StreamWriter copyErrorWriter;
 		static StreamWriter verificationLogWriter;
 		static StreamWriter verificationErrorWriter;
-		static String logRoot;
+		static string logRoot;
 
 		static bool logToFile = false;
 		static bool logToConsole = false;
@@ -48,7 +48,7 @@ namespace backup
 
 			logRoot = destinationRoot + Path.DirectorySeparatorChar;
 
-			String logging;
+			string logging;
 
 			using (reader = new StreamReader("options.txt"))
 			{
@@ -77,7 +77,7 @@ namespace backup
 				}
 			}
 
-			String robocopyUserArguments;
+			string robocopyUserArguments;
 			using (reader = new StreamReader("robocopy-arguments.txt"))
 			{
 				robocopyUserArguments = reader.ReadLine();
@@ -85,22 +85,15 @@ namespace backup
 
 			if (!Directory.Exists(destinationRoot))
 			{
-				stop = true;
-			}
-
-			if (stop)
-			{
 				Console.WriteLine("Error, destination doesn't exist.");
 				Console.WriteLine("Press return to exit.");
 				Console.ReadLine();
 				return;
 			}
 
-			List<String> sources;
+			List<string> sources = new List<string>();
 			using (reader = new StreamReader("sources.txt"))
 			{
-				sources = new List<String>();
-
 				while (reader.Peek() >= 0)
 				{
 					sources.Add(reader.ReadLine());
@@ -137,6 +130,7 @@ namespace backup
 				if (!ajob.pathExists)
 				{
 					stop = true;
+					Console.WriteLine();
 					Console.WriteLine("Error, nonexistent path:");
 					Console.WriteLine(ajob.path);
 				}
@@ -200,7 +194,7 @@ namespace backup
 				Job ajob = jobs.ElementAt(i);
 
 				//robocopy needs spaces before trailing "s, bug
-				String robocopyArguments = "\"" + ajob.directoryPath + " \"" + " " + "\"" + ajob.destinationPath + " \""; // <1> <2>
+				string robocopyArguments = "\"" + ajob.directoryPath + " \"" + " " + "\"" + ajob.destinationPath + " \""; // <1> <2>
 
 				if (ajob.isFile)
 				{
@@ -290,7 +284,7 @@ namespace backup
 			for (int i = 0; i < jobs.Count; i++)
 			{
 				Job ajob = jobs.ElementAt(i);
-				String arguments;
+				string arguments;
 
 				if (ajob.isFile)
 				{
