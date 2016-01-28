@@ -307,8 +307,6 @@ namespace backup
 
 					p.Start();
 
-
-
 					string output = p.StandardError.ReadToEnd();
 
 					if (logToFile)
@@ -376,6 +374,5 @@ namespace backup
 			writer.Write(output);
 			writer.Flush();
 		}
-
 	} //class
 } //namespace
